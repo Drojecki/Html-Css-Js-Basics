@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Playground</title>
+    <link rel="shortcut icon" type="image/jpg" sizes="16x16" href="/img/korona.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,600;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+
+    <link rel="canonical" href="/">
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/js.js"></script>
+
+   
+   
+    <style>
+        body{
+            background-color: #909399;
+            font-size: 20px;
+            color: white;
+            font-family: 'Inconsolata';
+            font-weight: 700;
+        }
+        h2{
+            margin-top: 5%;
+            margin-left: 4%;
+            font-size: 32px;
+            margin-bottom: 2%;
+            letter-spacing: 1px;
+            color: #FFC851;
+        }
+        h1{
+            font-size: 32px;
+            text-align: center;
+        }
+        div
+            {
+                margin: 2px 0;
+                margin-left: 2%;
+            }
+
+        .interfejs
+        {
+            margin: 15px 0;
+            margin-left: 2%;
+        }
+
+        #ciag, #fi
+        {
+            display: inline-block;
+            margin-right: 10px;
+            flex: 1;
+        }
+        .odd{
+            color: #5e5e63;
+        }
+        .even{
+            color: #5e5e63;
+        }
+        .ratio{
+            position:absolute;
+            color: #FFC851;
+        }
+        input[value="Red"] {
+            background-color: red;
+        }
+
+        input[value="Green"] {
+            background-color: green;
+        }
+
+        input[value="Magenta"] {
+            background-color: magenta;
+        }
+        .wielkosc{
+            font-size: 24px;
+        }
+        @media(max-width: 520px){ 
+            h2{
+                font-size: 16px;
+            }
+            h1{
+                font-size: 16px;
+            }
+            .interfejs{
+                font-size: 16px
+            }
+            .wielkosc{
+            font-size: 16px;
+        }
+        }
+
+    </style>
+    <script>
+        function przejdzDoInnejStrony() {
+          window.location.href = "./hello.html";
+        }
+        </script>
+</head>
+
+<body >
+   
+<main>
+    <h2><button onclick="przejdzDoInnejStrony()">&lt;-poprzednia strona </button></h2>
+    <h1>Ciąg fibonacciego</h1>
+    <article>
+        <div class="interfejs">
+            <label>
+                n<sub>01</sub> = <input type="number" id="a"value="5">
+            </label>
+            <label>
+                n<sub>02</sub> = <input type="number" id="b"value="10">
+            </label>
+            <label style="margin-top: 2%;">
+                Ile wyrazów złotego ciągu? -> <input type="number" id="ile" value="10">
+            </label>
+        </div>
+        <div class="interfejs">
+            Kolorowanka nieparzystych
+            <input type="button"name="n"value="Red">
+            <input type="button"name="n"value="Green">
+            <input type="button"name="n"value="Magenta">
+            <div style="margin-top: 2%;"></div>
+            Kolorowanka parzystych
+            <input type="button"name="p"value="Red">
+            <input type="button"name="p"value="Green">
+            <input type="button"name="p"value="Magenta">
+
+
+        </div>
+        <div  class="wielkosc">
+            <input type="button" id="generuj_ciag" value="Generuj ciąg">
+            <input type="button" id="blokada" value="Zablokuj">
+        </div>
+        
+        <div>
+            <div id="ciag"style="width: auto; white-space: nowrap; text-overflow: ellipsis;"></div>
+            <div id="fi"></div>
+        </div>
+        
+    </article>
+
+</main>
+<script>
+    document.getElementById('generuj_ciag').addEventListener('click',generuj);
+    let niepatrzyste = document.getElementsByName('n');
+    let parzyste = document.getElementsByName('p');
+    for(let i=0;i<3;i++){
+        niepatrzyste[i].addEventListener('click',koloruj_n);
+    }
+    for(let i=0;i<3;i++){
+        parzyste[i].addEventListener('click',koloruj_p);
+    }
+    document.querySelector('#blokada').addEventListener('click',dostep);
+    
+	function generuj(){
+        let ile = document.querySelector('#ile').value;
+        let a = document.querySelector('#a').value;
+        let b = document.querySelector('#b').value;
+        let zapas;
+        a = parseFloat(a);
+        b = parseFloat(b);
+        ile = parseInt(ile);
+        if(isNaN(a)||isNaN(b)||isNaN(ile)||ile<2){
+            document.querySelector('#ciag').innerHTML= '<p style="margin-top:5%;">Wpisz poprawnie liczby</p>';
+            document.querySelector('#fi').innerHTML='';
+        }
+        else{
+            let ciag = '<p>n<sub>x</sub></p>';
+            let ratios = '<p>&Phi;=n<sub>x</sub>&divide;n<sub>x-1</sub></p>';
+
+            if(a%2==1){
+                ciag = ciag + '<div>01 -> <span class="odd">'+a+'</span></div>';
+            }
+            else{
+                ciag = ciag + '<div>01 -> <span class="even">'+a+'</span></div>';
+            }
+            if(b%2==1){
+                ciag = ciag + '<div>02 -> <span class="odd">'+b+'</span></div>';
+            }
+            else{
+                ciag = ciag + '<div>02 -> <span class="even">'+b+'</span></div>';
+            }
+            ratios = ratios + '<div>01 -> <span class="ratio"> brak</span></div>';
+            ratios = ratios + '<div>02 -> <span class="ratio">'+(b/a).toFixed(20)+'</span></div>';
+            
+            
+            for(i=3;i<=ile;i++){
+                zapas = a;
+                a = b;
+                b = zapas + b;
+                if(i<10){
+                    zapas = '0';
+                }
+                else{
+                    zapas = '';
+                }
+                if(b%2==1){
+                    ciag = ciag + '<div>'+zapas+i+' -> <span class="odd">'+b+'</span></div>';
+                }
+                else{
+                    ciag = ciag + '<div>'+zapas+i+' -> <span class="even">'+b+'</span></div>';
+                }
+
+                ratios = ratios + '<div>'+zapas+i+' -> <span class="ratio">'+(b/a).toFixed(20)+'</span></div>';
+
+
+            }
+            document.querySelector('#ciag').innerHTML = ciag;
+            document.querySelector('#fi').innerHTML = ratios;
+        }
+    }
+    function koloruj_n(){
+        let kolor = this.value;
+        let np = document.getElementsByClassName('odd');
+        for(let wiersz of np){
+            wiersz.style.color = kolor;
+        }
+    }
+    function koloruj_p(){
+        let kolor = this.value;
+        let p = document.getElementsByClassName('even');
+        for(let wiersz of p){
+            wiersz.style.color = kolor;
+        }
+    }
+    function dostep(){
+        let przyciski = document.querySelectorAll('input:not(#blokada)');
+        for(let przycisk of przyciski){
+            przycisk.toggleAttribute('disabled');
+        }
+        if(this.value=="Zablokuj"){
+            this.value = 'Odblokuj';
+        }
+        else{
+            this.value = 'Zablokuj';
+        }
+    }
+		
+		
+</script>
+
+
+
+
+
+
+</body>
+
+</html>
+
