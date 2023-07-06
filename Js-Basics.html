@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Playground</title>
+    <link rel="shortcut icon" type="image/jpg" sizes="16x16" href="/img/korona.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,600;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+
+    <link rel="canonical" href="/">
+
+    
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/js.js"></script>
+
+    <script>
+
+
+        function odliczanie() {
+            var timerElements = document.getElementsByClassName("timer");
+
+            setInterval(function () {
+                var data = new Date();
+                var czas = data.toLocaleTimeString();
+                for (var i = 0; i < timerElements.length; i++) {
+                    timerElements[i].innerHTML = czas;
+                }
+            }, 1000);
+
+        }
+        function sprawdz(){
+            var liczba = document.getElementById("pole").value;
+            if(liczba>0){
+                document.getElementById("wynik").innerHTML="dodatnia"
+            }else if(liczba==0){
+                document.getElementById("wynik").innerHTML="zero"
+            }else if(liczba<0){
+                document.getElementById("wynik").innerHTML="ujemna"
+            }else {
+                document.getElementById("wynik").innerHTML="Błąd "
+            }
+
+
+        }
+        function pokazywanie() {
+            var int1 = document.getElementById("liczba1").value;
+            var int2 = document.getElementById("liczba2").value;
+            var napis = "";
+            if (int1 > int2) {
+                document.getElementById("wynik1").innerHTML = "Za mała liczba"
+            }
+            if (int1 == int2) {
+                document.getElementById("wynik1").innerHTML = liczba1.value + " " + liczba1.value;
+            }
+            if (int1 < int2) {
+                for (i = int1; i <= int2; i++) {
+                    napis = napis + i + " ";
+                }
+                document.getElementById("wynik1").innerHTML = napis;
+            } else {
+                document.getElementById("wynik1").innerHTML = "Błąd"
+            }
+
+
+        }
+        var numer = Math.floor(Math.random()*5)+2;
+        var timer1 =0;
+        var timer2 =0;
+        function schowaj() {
+            $("#slider").fadeOut(500);
+        }
+        function zmiana_slajdu() {
+            numer++;
+            if (numer > 5) {
+                numer = 2;
+            }
+            var plik = "<img src=\"img/" + numer + ".jpg\"/>";
+            document.getElementById("slider").innerHTML = plik;
+            $("#slider").fadeIn(500);
+            timer1=setTimeout("zmiana_slajdu()", 5000);
+            timer2=setTimeout("schowaj()", 4500);
+        }
+        function ustaw(nr_slajd){
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+            numer = nr_slajd-1;
+
+            schowaj();
+            setTimeout("zmiana_slajdu()", 500);
+        }
+        var hasla = ["Elektryka prąd nie tyka", "do Boga, gdy trwoga", "cicha woda brzegi rwie", "baba z wozu, koniom lżej", "bez pracy nie ma płacy","co swój, to nie obcy"];
+        var haslo = hasla[Math.floor(Math.random() * hasla.length)];
+        haslo = haslo.toUpperCase();
+
+        var dlugosc = haslo.length;
+        var ile_nietrafionych = 1;
+
+        var haslo1 = "";
+
+        for (i=0; i<dlugosc; i++)
+        {
+            if (haslo.charAt(i)==" ") haslo1 = haslo1 + " ";
+            else haslo1 = haslo1 + "-";
+        }
+
+        function wypisz_haslo()
+        {
+            document.getElementById("plansza").innerHTML = haslo1;
+        }
+
+        window.onload = start;
+
+        var litery = new Array(35);
+
+        litery[0] = "A";
+        litery[1] = "Ą";
+        litery[2] = "B";
+        litery[3] = "C";
+        litery[4] = "Ć";
+        litery[5] = "D";
+        litery[6] = "E";
+        litery[7] = "Ę";
+        litery[8] = "F";
+        litery[9] = "G";
+        litery[10] = "H";
+        litery[11] = "I";
+        litery[12] = "J";
+        litery[13] = "K";
+        litery[14] = "L";
+        litery[15] = "Ł";
+        litery[16] = "M";
+        litery[17] = "N";
+        litery[18] = "Ń";
+        litery[19] = "O";
+        litery[20] = "Ó";
+        litery[21] = "P";
+        litery[22] = "Q";
+        litery[23] = "R";
+        litery[24] = "S";
+        litery[25] = "Ś";
+        litery[26] = "T";
+        litery[27] = "U";
+        litery[28] = "V";
+        litery[29] = "W";
+        litery[30] = "X";
+        litery[31] = "Y";
+        litery[32] = "Z";
+        litery[33] = "Ż";
+        litery[34] = "Ź";
+
+
+
+        function start()
+        {
+
+            var tresc_diva ="";
+
+            for (i=0; i<=34; i++)
+            {
+                var element = "lit" + i;
+                tresc_diva = tresc_diva + '<div class="litera" onclick="sprawdz('+i+')" id="'+element+'">'+litery[i]+'</div>';
+                if ((i+1) % 7 ==0) tresc_diva = tresc_diva + '<div style="clear:both;"></div>';
+            }
+
+            document.getElementById("alfabet").innerHTML = tresc_diva;
+
+
+            wypisz_haslo();
+        }
+
+        String.prototype.ustawZnak = function(miejsce, znak)
+        {
+            if (miejsce > this.length - 1) return this.toString();
+            else return this.substr(0, miejsce) + znak + this.substr(miejsce+1);
+        }
+
+
+        function sprawdz(nr)
+        {
+
+            var trafiona = false;
+
+            for(i=0; i<dlugosc; i++)
+            {
+                if (haslo.charAt(i) == litery[nr])
+                {
+                    haslo1 = haslo1.ustawZnak(i,litery[nr]);
+                    trafiona = true;
+                }
+            }
+
+            if(trafiona == true)
+            {
+                var element = "lit" + nr;
+                document.getElementById(element).style.background = "#003300";
+                document.getElementById(element).style.color = "#00C000";
+                document.getElementById(element).style.border = "3px solid #00C000";
+                document.getElementById(element).style.cursor = "default";
+
+                wypisz_haslo();
+            }
+            else{
+                var element = "lit" + nr;
+                document.getElementById(element).style.background = "#330000";
+                document.getElementById(element).style.color = "#C00000";
+                document.getElementById(element).style.border = "3px solid #C00000";
+                document.getElementById(element).style.cursor = "default";
+                document.getElementById(element).setAttribute("onclick",";");
+
+                ile_nietrafionych++;
+                document.getElementById("szubiennica").innerHTML = '<img src="./img/sz/s0'+ile_nietrafionych+'.png"class="wielkosc obramowka"/>';
+            }
+            if(haslo == haslo1){
+                document.getElementById("alfabet").innerHTML = 'Tak jest! Podano prawidłowe hasło: ' + haslo + '<div class="clearfix"></div><span class="reset"  onclick="location.reload()">->>RESET<<-</span>';
+
+
+            }
+            if (ile_nietrafionych>=9){
+                document.getElementById("alfabet").innerHTML = "Przegrałeś!" + '<div style="clear: both;"></div><span class="reset1" onclick="location.reload()">->>RESET<<-</span>';
+            }
+
+
+        }
+        window.onload = function() {
+            wypisz_haslo();
+            odliczanie();
+            zmiana_slajdu();
+            start();
+        };
+
+        
+
+   
+   </script>
+   
+    <style>
+        body{
+            background-color: #909399;
+            font-size: 20px;
+            color: white;
+            font-family: 'Inconsolata';
+            font-weight: 700;
+        }
+        .reset{
+            color: green;
+            cursor: pointer;
+        }.reset1{
+            color: red;
+            cursor: pointer;
+        }
+        .clearfix {
+            clear: both;
+            display: block;
+            content: "";
+        }
+        .obramowka{background-color:#AFA5D9 ;
+            color: white;
+            padding: 3px;
+            border: solid 3px #4723D9;
+            border-radius: 30px;}
+        .litera{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            margin: 5px;
+            border:3px solid black;
+            float: left;
+            cursor:pointer ;
+            padding: 5px;
+            border-radius: 15px;
+
+            
+        }
+        .litera:hover{
+            background-color: #222222;
+            color: white;
+            border:3px solid white;
+        }
+        .margines{
+            margin-top: 20px; 
+            margin-left: 20px;
+        }
+        .myszka{
+            cursor: pointer;
+        }
+        #pojemnik{
+            width:100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #plansza{
+            width:100%;
+            text-align: center;
+            font-size: 120%;
+            margin-top: 20px;
+        }
+        #szubiennica{
+           float: left;
+            text-align: center;
+        }
+        #alfabet{
+            float: left;
+        }
+        .wielkosc{
+            width: 100%;
+            height: auto;
+        }
+        .dol{
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        
+        
+
+            
+
+        
+        a:link {color: #209781;text-decoration: none;}
+            a:visited {color: #209781;}
+            a:active {color: #209781;}
+            a:hover {color: #E9B64A;}
+        h1{
+            font-size: 32px;
+            text-align: center;
+        }
+        h2 {
+    font-size: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1%;
+    
+  }
+
+  .left-button {
+    order: 1;
+    margin-left: 4%;
+  }
+
+  .right-button {
+    order: 2;
+    margin-right: 4%;
+  }
+        .board {
+        width: 66%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    .kartaA {
+        width: 125px;
+        height: 125px;
+        display: inline-block;
+        margin: 3px;
+        background-image: url("./img/gra_w_pamiec/q_mark.jpg");
+        border-radius: 8%;
+        border: solid 3px#3ba145;
+        cursor: default;
+        filter: brightness(100%);
+        transition: all .3s ease-in-out;
+    }
+
+    .karta {
+        width: 125px;
+        height: 125px;
+        display: inline-block;
+        margin: 3px;
+        background-image: url("./img/gra_w_pamiec/q_mark.jpg");
+        border-radius: 8%;
+        border: solid 3px#E9B64A;
+        cursor: pointer;
+        filter: brightness(70%);
+        transition: all .3s ease-in-out;
+    }
+    .karta:hover{
+        border: solid 3px#3ba145;
+        filter: brightness(100%);
+    }
+    .licznik_ruchow{
+        margin-top: 5px;
+        letter-spacing: 2px;
+    }
+    .marg{
+        margin-top: 20px;
+    }
+    
+    
+
+
+        @media (min-width:1050px){
+            .board{
+                width: 50%;
+            }
+        }
+        
+        @media(max-width: 520px){
+            .litera {
+                padding: 2px;
+                width: 40px;
+                height: 40px;
+                margin: 5px;
+                border:3px solid black;
+                border-radius: 15px;
+                font-size: 90%;
+
+
+            }
+            h2{
+                font-size: 16px;
+            }
+            .wielkosc{
+                width: 80%;
+            }
+            #alfabet{
+                margin-left: 30px;
+            }
+            .board{
+                width: 100%;
+            }
+            .karta{
+                width: 70px;
+                height: 70px;
+                display: inline-flex;
+                background-size: cover;
+                filter: brightness(100%);
+            }
+            .kartaA{
+                width: 70px;
+                height: 70px;
+                display: inline-flex;
+                background-size: cover;
+                filter: brightness(100%);
+            }
+        }
+
+    </style>
+</head>
+
+<body >
+    <script>
+        function przejdzDoInnejStrony() {
+          window.location.href = "./hello1.html";
+        }
+        function przejdzDoInnejStrony1() {
+          window.location.href = "./projekty.html";
+        }
+        </script>
+<div>
+    <span class="timer margines"></span>
+</div>
+<h2>
+    <div></div>
+    <button class="right-button" onclick="przejdzDoInnejStrony()">Następna strona -></button>
+  </h2>
+  <h1>Gra w memory</h1>
+<main>
+
+<article>
+    <div class ="board">
+        <div class="karta" id="c0"></div>
+        <div class="karta" id="c1"></div>
+				<div class="karta" id="c2"></div>
+				<div class="karta" id="c3"></div>
+				
+				<div class="karta" id="c4"></div>
+				<div class="karta" id="c5"></div>
+				<div class="karta" id="c6"></div>
+				<div class="karta" id="c7"></div>
+				
+				<div class="karta" id="c8"></div>
+				<div class="karta" id="c9"></div>
+				<div class="karta" id="c10"></div>
+				<div class="karta" id="c11"></div>
+
+        <div class="licznik_ruchow">Licznik ruchow: 0</div>
+
+
+    </div>
+</article>
+<script>
+var cards1 = ["x.png","s.png","i.png","l.png","d.png","a.png","x.png","s.png","i.png","l.png","d.png","a.png"];
+
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+} 
+function shuffleCards(cards1) {
+  var cards = cards1.slice(); // Tworzenie kopii tablicy 'cards'
+  shuffleArray(cards);
+  return cards;
+}
+
+var cards = shuffleCards(cards1);
+   
+var c0 = document.getElementById('c0');
+var c1 = document.getElementById('c1');
+var c2 = document.getElementById('c2');
+var c3 = document.getElementById('c3');
+
+var c4 = document.getElementById('c4');
+var c5 = document.getElementById('c5');
+var c6 = document.getElementById('c6');
+var c7 = document.getElementById('c7');
+
+var c8 = document.getElementById('c8');
+var c9 = document.getElementById('c9');
+var c10 = document.getElementById('c10');
+var c11 = document.getElementById('c11');
+
+c0.addEventListener("click", function() { revealCard(0); });
+c1.addEventListener("click", function() { revealCard(1); });
+c2.addEventListener("click", function() { revealCard(2); });
+c3.addEventListener("click", function() { revealCard(3); });
+
+c4.addEventListener("click", function() { revealCard(4); });
+c5.addEventListener("click", function() { revealCard(5); });
+c6.addEventListener("click", function() { revealCard(6); });
+c7.addEventListener("click", function() { revealCard(7); });
+
+c8.addEventListener("click", function() { revealCard(8); });
+c9.addEventListener("click", function() { revealCard(9); });
+c10.addEventListener("click", function() { revealCard(10); });
+c11.addEventListener("click", function() { revealCard(11); });
+var ile_widac = false;
+var rundy = 0;
+var numer_pierwszej;
+var blokada = false;
+var pary = 6;
+function revealCard(nr){ 
+        var czy_widac1 = $('#c'+nr).css('opacity');
+        if(czy_widac1!=0 && blokada == false){
+            blokada = true;
+            var obraz = "url(./img/gra_w_pamiec/"+ cards[nr]+")";
+            $('#c'+nr).css('background-image',obraz);
+            $('#c'+nr).addClass('kartaA');
+            $('#c'+nr).removeClass('karta');
+            if(ile_widac==false){
+                ile_widac=true;
+                numer_pierwszej = nr;
+                blokada = false;
+            }
+            else{
+                if(cards[numer_pierwszej]==cards[nr]){
+                    setTimeout(function(){schowaj_karty(nr,numer_pierwszej)},800);
+                    
+                }
+                else{
+                    setTimeout(function(){reser_kart(nr,numer_pierwszej)},800);
+                }
+                rundy = rundy+1;
+                $('.licznik_ruchow').html('Licznik ruchow: '+rundy);
+                ile_widac=false;
+            }
+        }
+        
+    }
+    function schowaj_karty(nr11,nr22){
+        $('#c'+nr11).css('opacity','0');
+        $('#c'+nr22).css('opacity','0');
+        pary = pary -1;
+        if(pary == 0){
+            $('.board').html('<h1>Wygrałeś w '+rundy+' rund</h1>');
+        }
+        blokada = false;
+
+    }
+    function reser_kart(nr11,nr22){
+        $('#c'+nr11).css('background-image','url(./img/gra_w_pamiec/q_mark.jpg)');
+        $('#c'+nr11).addClass('karta');
+        $('#c'+nr11).removeClass('kartaA');
+
+        $('#c'+nr22).css('background-image','url(./img/gra_w_pamiec/q_mark.jpg)');
+        $('#c'+nr22).addClass('karta');
+        $('#c'+nr22).removeClass('kartaA');
+        blokada = false;
+    }
+</script>
+</main>
+
+<h1 class="marg">Wisielec</h1>
+<div id="pojemnik"class="col-lg-12 col-md-12 col-sm-12">
+
+    <div id="plansza"class="col-lg-12 col-md-12 col-sm-12"></div>
+
+    <div id="szubiennica"class="col-lg-6 col-md-6 col-sm-12 dol ">
+        <img src="./img/sz/s01.png"class="wielkosc obramowka">
+    </div>
+    <div id="alfabet"class="col-lg-6 col-md-6 col-sm-12 dol"style="margin-left:10px;">
+
+    </div>
+</div>
+
+<div style="clear: both;"></div>
+<div>
+    <input type="text"id="pole"class="margines">
+    <input type="submit" value="sprawdz"onclick="sprawdz()">
+</div>
+
+<div id="wynik"class="margines"></div>
+
+<div>
+    <input type="text"class="margines"id="liczba1">
+    <input type="text"class="margines"id="liczba2">
+    <input type="submit" value="sprawdz"onclick="pokazywanie()">
+</div>
+
+<div id="wynik1"class="margines"></div>
+
+<span onclick="ustaw(2)"class="myszka margines">[1]</span>
+<span onclick="ustaw(3)"class="myszka">[2]</span>
+<span onclick="ustaw(4)"class="myszka">[3]</span>
+<span onclick="ustaw(5)"class="myszka">[4]</span>
+
+<div id="slider"class="margines"></div>
+
+
+
+
+
+</body>
+
+</html>
+
